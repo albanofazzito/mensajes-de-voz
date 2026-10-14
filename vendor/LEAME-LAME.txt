@@ -1,0 +1,21 @@
+lame.min.js - codificador MP3 usado por el grabador
+===================================================
+
+Que es:      lamejs 1.2.1, la version en JavaScript del codificador LAME.
+Origen:      paquete npm "lamejs" 1.2.1 (https://www.npmjs.com/package/lamejs)
+             codigo fuente: https://github.com/zhuker/lamejs
+             proyecto LAME: https://lame.sourceforge.io/
+Integridad:  sha512-s7bxvjvYthw6oPLCm5pFxvA84wUROODB8jEO2+CE1adhKgrIvVOlmMgY8zyugxGrvRaDHNJanOiS21/emty6dQ==
+             (la del registro de npm para lamejs-1.2.1.tgz)
+             SHA-256 de lame.min.js: 15d285e2587b3bdbfd18a68de6ce07cc074f7480a82c3815da2dc1c348ec6df4
+Licencia:    GNU Lesser General Public License v3 (LICENCIA-LGPL-3.0.txt, que remite a
+             LICENCIA-GPL-3.0.txt).
+
+El archivo se distribuye SIN MODIFICACIONES y se carga como un archivo aparte
+(codificador-worker.js lo importa con importScripts), tal como recomienda la FAQ de LAME:
+  1. usar LAME como un archivo separado (lame.min.js);
+  2. reconocer que se usa LAME y enlazar a su sitio;
+  3. si se modifica LAME, publicar esas modificaciones bajo la LGPL.
+
+Para reemplazarlo por otra version, cualquier persona puede cambiar este archivo por otra
+compilacion de lamejs con la misma interfaz (lamejs.Mp3Encoder).
