@@ -14,6 +14,9 @@
   'use strict';
 
   const PROTOCOLO = 2;               // tiene que coincidir con PROTOCOLO_VOZ del complemento
+  // Huella de la publicacion: "local" en el codigo fuente; publicar-grabador la reemplaza, igual que
+  // la de index.html (ver scripts/huella-del-grabador.js).
+  const VERSION_DEL_GRABADOR = 'e089ada0b309';
   const KBPS = 64;                   // MP3 mono: ~480 KB por minuto, muy buena calidad para voz
   const INTENTOS_POR_PEDIDO = 4;
   const PEDIDOS_EN_PARALELO = 3;
@@ -73,6 +76,7 @@
   // ---------------------------------------------------------------- inicio
 
   function iniciar() {
+    if (!esLaMismaPublicacion()) return;
     conectarEventos();
     const parametros = leerParametros();
     if (parametros.invalido) {
@@ -130,6 +134,32 @@
     });
   }
 
+  /**
+   * La pagina y este script tienen que ser de la misma publicacion. GitHub Pages deja que el
+   * navegador guarde cada archivo 10 minutos: justo despues de publicar, una pagina vieja guardada
+   * puede cargar este script nuevo. En ese caso se pide la pagina otra vez con una direccion
+   * distinta, que el navegador no tiene guardada. Corre antes que todo lo demas (la pagina vieja
+   * no tiene los elementos de esta version) y conserva el enlace, que todavia esta en la URL.
+   */
+  function esLaMismaPublicacion() {
+    const marca = document.querySelector('meta[name="version-del-grabador"]');
+    if (marca && marca.content === VERSION_DEL_GRABADOR) return true;
+    const url = new URL(location.href);
+    if (!url.searchParams.has('recarga')) {
+      url.searchParams.set('recarga', Date.now().toString(36));
+      location.replace(url.href);
+      return false;
+    }
+    // Ya se recargo y sigue sin coincidir: la publicacion todavia se esta propagando.
+    const aviso = document.createElement('p');
+    aviso.className = 'pie';
+    aviso.textContent = 'El grabador se está actualizando. Cerrá esta ventana y, en unos minutos, volvé a ' +
+      'tocar «Grabar audio» en Gmail.';
+    document.body.textContent = '';
+    document.body.appendChild(aviso);
+    return false;
+  }
+
   /** Lee el token de la URL (o de sessionStorage si se recargo la ventana) y lo saca de la URL. */
   function leerParametros() {
     const consulta = new URLSearchParams(location.search);
@@ -159,27 +189,9 @@
   async function conectarConServicio() {
     $('textoCargando').textContent = 'Preparando el grabador…';
     mostrarPanel('cargando');
+    let respuesta;
     try {
-      const respuesta = await llamar({ accion: 'estado', token: estado.token, protocolo: PROTOCOLO });
-      if (respuesta.protocolo !== PROTOCOLO) {
-        mostrarError({
-          titulo: 'Hay que actualizar el grabador',
-          detalle: 'El complemento y esta página tienen versiones distintas. Avisale a quien ' +
-            'administra el complemento.',
-          tecnico: `protocolo del servicio ${respuesta.protocolo}, del grabador ${PROTOCOLO}`,
-          principal: botonCerrar()
-        });
-        return;
-      }
-      estado.servidor = respuesta;
-      estado.ventana = respuesta.ventana;
-      estado.duracionMaxima = respuesta.duracionMaximaSegundos;
-      estado.partesMaximas = respuesta.partesMaximas || 1;
-      // Si se recargo la ventana (o se volvio a abrir el grabador), se sigue con lo ya grabado.
-      estado.partes = (respuesta.partes || []).map((parte) => ({ n: parte.n, duracion: parte.duracion,
-        bytes: parte.bytes, transcripcion: parte.transcripcion || { estado: 'ninguna' } }));
-      estado.partes.forEach(seguirTranscripcion);
-      prepararInicio();
+      respuesta = await llamar({ accion: 'estado', token: estado.token, protocolo: PROTOCOLO });
     } catch (error) {
       if (esErrorDeEnlace(error)) {
         mostrarError(errorDeEnlace(error.message));
@@ -191,6 +203,37 @@
           'a quien administra el complemento.',
         tecnico: descripcionTecnica(error),
         principal: { texto: 'Reintentar', accion: conectarConServicio },
+        secundario: botonCerrar()
+      });
+      return;
+    }
+    if (respuesta.protocolo !== PROTOCOLO) {
+      mostrarError({
+        titulo: 'Hay que actualizar el grabador',
+        detalle: 'El complemento y esta página tienen versiones distintas. Avisale a quien ' +
+          'administra el complemento.',
+        tecnico: `protocolo del servicio ${respuesta.protocolo}, del grabador ${PROTOCOLO}`,
+        principal: botonCerrar()
+      });
+      return;
+    }
+    try {
+      estado.servidor = respuesta;
+      estado.ventana = respuesta.ventana;
+      estado.duracionMaxima = respuesta.duracionMaximaSegundos;
+      estado.partesMaximas = respuesta.partesMaximas || 1;
+      // Si se recargo la ventana (o se volvio a abrir el grabador), se sigue con lo ya grabado.
+      estado.partes = (respuesta.partes || []).map((parte) => ({ n: parte.n, duracion: parte.duracion,
+        bytes: parte.bytes, transcripcion: parte.transcripcion || { estado: 'ninguna' } }));
+      estado.partes.forEach(seguirTranscripcion);
+      prepararInicio();
+    } catch (error) {
+      // Un error del grabador, no de la conexion: lo mas probable es que se solucione recargando.
+      mostrarError({
+        titulo: 'Algo salió mal al abrir el grabador',
+        detalle: 'Recargá la ventana. Si vuelve a pasar, avisale a quien administra el complemento.',
+        tecnico: descripcionTecnica(error),
+        principal: { texto: 'Recargar', accion: () => location.reload() },
         secundario: botonCerrar()
       });
     }
@@ -316,7 +359,7 @@
         tasa: contexto.sampleRate, etiqueta: pista ? pista.label : '' };
 
       if (contexto.audioWorklet && window.AudioWorkletNode) {
-        await contexto.audioWorklet.addModule('captura-worklet.js');
+        await contexto.audioWorklet.addModule('captura-worklet.js?v=' + VERSION_DEL_GRABADOR);
         captura.nodo = new AudioWorkletNode(contexto, 'captura-pcm', {
           numberOfInputs: 1, numberOfOutputs: 1, outputChannelCount: [1],
           channelCount: 1, channelCountMode: 'explicit', channelInterpretation: 'speakers'
@@ -351,7 +394,7 @@
   }
 
   function crearCodificador(tasa) {
-    const trabajador = new Worker('codificador-worker.js');
+    const trabajador = new Worker('codificador-worker.js?v=' + VERSION_DEL_GRABADOR);
     trabajador.onerror = (evento) => {
       evento.preventDefault();
       falloElCodificador(evento.message || 'no se pudo cargar el codificador');
