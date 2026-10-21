@@ -125,6 +125,7 @@ svg { width: 24px; height: 24px; fill: currentColor; flex: none; }
 .tarjeta[data-panel="revisando"] .panel[data-panel="revisando"],
 .tarjeta[data-panel="subiendo"] .panel[data-panel="subiendo"],
 .tarjeta[data-panel="terminado"] .panel[data-panel="terminado"],
+.tarjeta[data-panel="transcribiendo"] .panel[data-panel="transcribiendo"],
 .tarjeta[data-panel="error"] .panel[data-panel="error"] { display: flex; }
 
 .titulo-panel { margin: 8px 0 0; font-size: 17px; font-weight: 500; }
@@ -202,6 +203,36 @@ audio { width: 100%; margin: 8px 0 4px; }
   width: 100%; padding: 8px 12px; border-radius: 8px;
   border: 1px solid var(--borde); background: var(--superficie); color: var(--texto); font: inherit;
 }
+
+/* Partes del mensaje */
+.partes { list-style: none; margin: 0 0 12px; padding: 0; width: 100%; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.parte {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 8px 8px 12px; border-radius: 12px; background: var(--superficie-2);
+}
+.parte-numero {
+  width: 28px; height: 28px; flex: none; border-radius: 50%;
+  display: grid; place-items: center; font-size: 13px; font-weight: 500;
+  background: var(--primario-suave); color: var(--sobre-primario-suave);
+}
+.parte-datos { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.parte-titulo { font-size: 14px; font-weight: 500; }
+/* El resumen ocupa hasta dos lineas; el texto completo queda en el title. */
+.parte-estado {
+  font-size: 12px; line-height: 1.4; color: var(--texto-3);
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
+}
+.parte-estado.lista { color: var(--texto-2); }
+.parte-estado.problema { color: var(--alerta); }
+.boton-icono {
+  width: 36px; height: 36px; flex: none; border: none; border-radius: 50%; cursor: pointer;
+  display: grid; place-items: center; background: transparent; color: var(--texto-3);
+  font: inherit; font-size: 12px; font-weight: 500;
+}
+.boton-icono svg { width: 20px; height: 20px; }
+.boton-icono:hover { background: var(--grabar-suave); color: var(--grabar); }
+.boton-icono:focus-visible { outline: none; box-shadow: var(--foco); }
+.boton-icono.confirmar { width: auto; padding: 0 12px; border-radius: 999px; background: var(--grabar-suave); color: var(--grabar); }
 
 /* Subida */
 .barra { width: 100%; height: 8px; margin-top: 12px; border-radius: 999px; background: var(--superficie-2); overflow: hidden; }
