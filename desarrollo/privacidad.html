@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Privacidad · Mensajes de voz</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="documentos.css">
+</head>
+<body>
+<main>
+  <header><img src="favicon.svg" alt=""><p>Mensajes de voz para Gmail</p></header>
+  <h1>Política de privacidad</h1>
+  <p class="actualizado">Última actualización: 4 de noviembre de 2026</p>
+
+  <p>Mensajes de voz es un complemento de Gmail para grabar un mensaje de voz y enviarlo como archivo
+  adjunto, con su transcripción y un resumen automáticos. Esta página explica qué datos usa, para qué,
+  dónde quedan y por cuánto tiempo.</p>
+
+  <h2>Qué datos usa y para qué</h2>
+  <table>
+    <tr><th>Dato</th><th>Para qué</th></tr>
+    <tr><td>El audio que grabás</td><td>Adjuntarlo al borrador del correo y transcribirlo.</td></tr>
+    <tr><td>La transcripción y el resumen</td><td>Mostrarlos en el panel y agregarlos al borrador, si lo elegís.</td></tr>
+    <tr><td>Remitente y asunto del correo abierto</td><td>Mostrar en el panel a quién vas a responder. No se guardan.</td></tr>
+    <tr><td>Tu dirección de correo</td><td>Comprobar que tu cuenta puede usar el servicio (que es de FIUBA). Solo se guarda, por una
+      hora, una huella irreversible de la dirección, para limitar cuántos mensajes se empiezan.</td></tr>
+  </table>
+  <p>El complemento <strong>no lee el contenido de tus correos</strong>, no accede a tu Drive y no envía
+  correos por su cuenta: siempre abre un borrador que revisás y enviás vos.</p>
+
+  <h2>Dónde quedan y por cuánto tiempo</h2>
+  <ul>
+    <li>El audio se graba y se convierte a MP3 <strong>en tu navegador</strong>.</li>
+    <li>Viaja cifrado (HTTPS) al servicio del complemento, en Google Apps Script, que lo guarda en un
+      almacenamiento temporal junto con su transcripción.</li>
+    <li>Se borra en cuanto creás el borrador o tocás «Descartar audio» y, si no lo usás, a las
+      2 horas como máximo.</li>
+    <li>Si instalaste tu propia copia del complemento, tu copia no guarda audios: el servicio se los da solo
+      para armar el borrador, con una llave que conoce únicamente tu copia.</li>
+    <li>El borrador y el correo que enviás quedan en tu Gmail, como cualquier otro correo.</li>
+    <li>No se guarda en Drive ni en ninguna base de datos.</li>
+  </ul>
+
+  <h2>Transcripción con Gemini</h2>
+  <p>Para transcribir y resumir, el servicio envía el audio a la API de Gemini de Google con la opción
+  que le indica a Google no guardar la consulta. El complemento no comparte los datos con nadie más.</p>
+  <p class="destacado">Hoy la transcripción usa el <strong>nivel gratuito</strong> de la API de Gemini. Según
+  los <a href="https://ai.google.dev/gemini-api/terms">términos de Google</a>, en ese nivel Google puede
+  usar el contenido que recibe para mejorar sus productos, y personas pueden revisarlo. <strong>No grabes
+  información sensible o confidencial, ni datos personales de terceros.</strong> Si en un correo no
+  querés la transcripción, apagala en el panel antes de crear el borrador; el audio va igual.</p>
+
+  <h2>Permisos que pide en Google</h2>
+  <ul>
+    <li><code>gmail.addons.execute</code>: funcionar como complemento de Gmail.</li>
+    <li><code>gmail.addons.current.message.metadata</code>: leer el remitente y el asunto del correo abierto,
+      solo mientras usás el panel.</li>
+    <li><code>gmail.addons.current.action.compose</code>: crear el borrador con el audio.</li>
+    <li><code>script.external_request</code>: conectarse a la API de Gemini para transcribir y, en las copias
+      del complemento, al servicio de Mensajes de voz.</li>
+    <li><code>userinfo.email</code> y <code>openid</code>: comprobar con qué cuenta usás el complemento.</li>
+  </ul>
+
+  <h2>Seguridad</h2>
+  <p>Cada grabación usa un enlace de un solo uso que vence, creado para tu cuenta. Nadie más puede usar
+  ni ver tu audio. La página del grabador no carga nada de terceros.</p>
+
+  <h2>Contacto</h2>
+  <p>Consultas sobre esta política o pedidos sobre tus datos: <a href="mailto:afazzito@fi.uba.ar">afazzito@fi.uba.ar</a>.</p>
+
+  <nav><a href="ayuda.html">Ayuda</a><a href="instalar.html">Instalar</a><a href="condiciones.html">Condiciones de uso</a></nav>
+</main>
+</body>
+</html>
