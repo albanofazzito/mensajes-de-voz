@@ -58,6 +58,8 @@ code { font-size: 14px; word-break: break-all; }
 
 .actualizado { margin: 0; color: var(--texto-3); font-size: 14px; }
 .destacado { padding: 12px 16px; border-radius: 12px; background: var(--alerta-suave); color: var(--texto); }
+.boton { display: inline-block; padding: 10px 24px; border-radius: 20px; background: var(--primario); color: var(--superficie);
+  font-weight: 500; text-decoration: none; }
 
 table { width: 100%; border-collapse: collapse; font-size: 15px; }
 th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--borde); color: var(--texto-2); }

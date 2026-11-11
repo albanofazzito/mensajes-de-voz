@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Instalar · Mensajes de voz</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="documentos.css">
+</head>
+<body>
+<main>
+  <header><img src="favicon.svg" alt=""><p>Mensajes de voz para Gmail</p></header>
+  <h1>Instalar Mensajes de voz</h1>
+  <p>Mensajes de voz es un complemento de Gmail para grabar un audio y mandarlo como archivo adjunto, con
+  su transcripción y un resumen. Para instalarlo hacés tu propia copia del complemento: lleva un par de
+  minutos y se hace una sola vez.</p>
+  <p class="destacado">Hacelo con tu cuenta <strong>@fi.uba.ar</strong>. Si tenés varias cuentas abiertas en
+  el navegador, usá una ventana de incógnito o un perfil de Chrome donde solo esté esa.</p>
+
+  <h2>Pasos</h2>
+  <ol>
+    <li>Abrí el complemento:
+      <p><a class="boton" href="https://script.google.com/home/projects/1TDUZ-k9ASpORGTMvih9Znui1D3KhTLOQFmfnXwe8NHHOiM5HdzImOXAn">Abrir Mensajes de voz</a></p>
+      Se abre su página en Apps Script, la herramienta de Google donde está el complemento.</li>
+    <li>En la barra de la izquierda, tocá el primer ícono, la «i» de la información general del proyecto
+      (en inglés, <em>Overview</em>). Arriba a la derecha de esa página, tocá <strong>Hacer una
+      copia</strong> (<em>Make a copy</em>): es un ícono de dos hojas, sin texto, que muestra el nombre al
+      pasarle el mouse. Se abre tu copia, «Copia de Mensajes de voz».</li>
+    <li>En tu copia, tocá <strong>Implementar</strong> &gt; <strong>Implementaciones de prueba</strong> (en
+      inglés, <em>Deploy &gt; Test deployments</em>). Junto a «Aplicación: Gmail», tocá
+      <strong>Instalar</strong> y después <strong>Listo</strong>.</li>
+    <li>Abrí Gmail, o recargalo si ya estaba abierto. En la barra de la derecha aparece el ícono del
+      micrófono. La primera vez, tocá <strong>Autorizar acceso</strong> y aceptá los permisos.</li>
+  </ol>
+  <p>Listo: para usarlo, mirá la <a href="ayuda.html">ayuda</a>. No hace falta tocar nada del código de tu
+  copia, y no conviene: si lo cambiás, puede dejar de funcionar.</p>
+
+  <h2>Los permisos que pide</h2>
+  <table>
+    <tr><th>Permiso</th><th>Para qué</th></tr>
+    <tr><td>Ver tu dirección de correo y asociarte con tu información personal</td><td>Comprobar que tu cuenta es de FIUBA.</td></tr>
+    <tr><td>Funcionar como complemento de Gmail y ver el remitente y el asunto del correo abierto</td><td>Mostrar a quién vas a responder.</td></tr>
+    <tr><td>Administrar borradores</td><td>Crear el borrador con el audio. El correo lo enviás vos.</td></tr>
+    <tr><td>Conectarse a un servicio externo</td><td>Llevar el audio al servicio de Mensajes de voz, que lo transcribe.</td></tr>
+    <tr><td>Ver, editar, crear y borrar solo los archivos de Google Drive que usás con esta app</td><td>Guardar los audios en tu Drive, si elegís «Enlace de Drive». No ve ningún otro archivo tuyo.</td></tr>
+  </table>
+  <p>Tu copia no guarda audios: el servicio los recibe del grabador y los borra en cuanto creás el
+  borrador. Solo si elegís «Enlace de Drive» quedan en tu Drive. Más detalles en la <a href="privacidad.html">política de privacidad</a>.</p>
+
+  <h2>Actualizar o desinstalar</h2>
+  <p>Si el panel muestra <strong>Hay una versión nueva</strong>:</p>
+  <ol>
+    <li>Desinstalá la anterior: en <a href="https://script.google.com/home">script.google.com</a>, abrí tu
+      copia &gt; <strong>Implementar</strong> &gt; <strong>Implementaciones de prueba</strong> &gt;
+      <strong>Desinstalar</strong>.</li>
+    <li>Repetí los pasos de arriba. Después podés borrar la copia vieja.</li>
+  </ol>
+  <p>Para desinstalarlo del todo, hacé solo el primer paso.</p>
+
+  <h2>Si algo no funciona</h2>
+  <table>
+    <tr><th>Qué pasa</th><th>Qué hacer</th></tr>
+    <tr><td>El enlace dice que necesitás acceso</td><td>Entrá con tu cuenta @fi.uba.ar. Si ya estás con esa cuenta, avisá por correo.</td></tr>
+    <tr><td>No aparece «Hacer una copia»</td><td>No está en el editor de código: tocá la «i», el primer ícono de la barra de la izquierda. Es un ícono sin texto, arriba a la derecha de esa página.</td></tr>
+    <tr><td>«Falta darle permiso de Drive al complemento»</td><td>Al autorizar no quedó marcado Drive. En el panel, con «Enlace de Drive» elegido, tocá <strong>Dar permiso de Drive</strong>, aceptá y cerrá la ventana. O usá «Archivo adjunto», que no lo necesita.</td></tr>
+    <tr><td>Al autorizar dice «Google no verificó esta app»</td><td>Es tu copia: tocá <strong>Configuración avanzada</strong> y después «Ir a Copia de Mensajes de voz».</td></tr>
+    <tr><td>No aparece el micrófono en Gmail</td><td>Recargá Gmail y revisá el paso 3 (<strong>Instalar</strong>).</td></tr>
+    <tr><td>«Mensajes de voz es solo para cuentas @fi.uba.ar»</td><td>Abriste Gmail con otra cuenta.</td></tr>
+    <tr><td>«No se pudo conectar con el servicio»</td><td>Esperá unos minutos y tocá <strong>Reintentar</strong>.</td></tr>
+  </table>
+  <p>Si sigue sin funcionar, escribí a <a href="mailto:afazzito@fi.uba.ar">afazzito@fi.uba.ar</a> y contá qué
+  mensaje aparece.</p>
+
+  <nav><a href="ayuda.html">Ayuda</a><a href="privacidad.html">Privacidad</a><a href="condiciones.html">Condiciones de uso</a></nav>
+</main>
+</body>
+</html>
