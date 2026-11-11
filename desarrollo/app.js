@@ -16,7 +16,7 @@
   const PROTOCOLO = 2;               // tiene que coincidir con PROTOCOLO_VOZ del complemento
   // Huella de la publicacion: "local" en el codigo fuente; publicar-grabador la reemplaza, igual que
   // la de index.html (ver scripts/huella-del-grabador.js).
-  const VERSION_DEL_GRABADOR = '42408d004fc4';
+  const VERSION_DEL_GRABADOR = '12f815c19c69';
   const KBPS = 64;                   // MP3 mono: ~480 KB por minuto, muy buena calidad para voz
   const INTENTOS_POR_PEDIDO = 4;
   const PEDIDOS_EN_PARALELO = 3;

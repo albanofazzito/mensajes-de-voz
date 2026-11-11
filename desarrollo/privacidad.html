@@ -13,23 +13,26 @@
 <main>
   <header><img src="favicon.svg" alt=""><p>Mensajes de voz para Gmail</p></header>
   <h1>Política de privacidad</h1>
-  <p class="actualizado">Última actualización: 4 de noviembre de 2026</p>
+  <p class="actualizado">Última actualización: 11 de noviembre de 2026</p>
 
-  <p>Mensajes de voz es un complemento de Gmail para grabar un mensaje de voz y enviarlo como archivo
-  adjunto, con su transcripción y un resumen automáticos. Esta página explica qué datos usa, para qué,
+  <p>Mensajes de voz es un complemento de Gmail para grabar un mensaje de voz y enviarlo por correo, como
+  archivo adjunto o como enlace de Drive, con su transcripción y un resumen automáticos. Esta página explica qué datos usa, para qué,
   dónde quedan y por cuánto tiempo.</p>
 
   <h2>Qué datos usa y para qué</h2>
   <table>
     <tr><th>Dato</th><th>Para qué</th></tr>
-    <tr><td>El audio que grabás</td><td>Adjuntarlo al borrador del correo y transcribirlo.</td></tr>
+    <tr><td>El audio que grabás</td><td>Adjuntarlo al borrador del correo (o guardarlo en tu Drive, si elegís
+      «Enlace de Drive») y transcribirlo.</td></tr>
     <tr><td>La transcripción y el resumen</td><td>Mostrarlos en el panel y agregarlos al borrador, si lo elegís.</td></tr>
-    <tr><td>Remitente y asunto del correo abierto</td><td>Mostrar en el panel a quién vas a responder. No se guardan.</td></tr>
+    <tr><td>Remitente y asunto del correo abierto</td><td>Mostrar en el panel a quién vas a responder y, con
+      «Enlace de Drive», poner el asunto en el nombre del archivo. No salen de tu cuenta.</td></tr>
     <tr><td>Tu dirección de correo</td><td>Comprobar que tu cuenta puede usar el servicio (que es de FIUBA). Solo se guarda, por una
       hora, una huella irreversible de la dirección, para limitar cuántos mensajes se empiezan.</td></tr>
   </table>
-  <p>El complemento <strong>no lee el contenido de tus correos</strong>, no accede a tu Drive y no envía
-  correos por su cuenta: siempre abre un borrador que revisás y enviás vos.</p>
+  <p>El complemento <strong>no lee el contenido de tus correos</strong> y no envía correos por su cuenta:
+  siempre abre un borrador que revisás y enviás vos. Solo usa tu Drive si elegís «Enlace de Drive», y
+  ahí ve únicamente los archivos que crea él mismo.</p>
 
   <h2>Dónde quedan y por cuánto tiempo</h2>
   <ul>
@@ -41,7 +44,10 @@
     <li>Si instalaste tu propia copia del complemento, tu copia no guarda audios: el servicio se los da solo
       para armar el borrador, con una llave que conoce únicamente tu copia.</li>
     <li>El borrador y el correo que enviás quedan en tu Gmail, como cualquier otro correo.</li>
-    <li>No se guarda en Drive ni en ninguna base de datos.</li>
+    <li>El servicio no guarda el audio en Drive ni en ninguna base de datos.</li>
+    <li>Si elegís «Enlace de Drive», el complemento guarda el audio en <strong>tu</strong> Drive, en la
+      carpeta «Mensajes de voz», y lo comparte para que lo escuche cualquier persona que tenga el enlace
+      (o solo tu organización, si no deja compartir afuera). Queda ahí hasta que lo borres.</li>
   </ul>
 
   <h2>Transcripción con Gemini</h2>
@@ -59,9 +65,11 @@
     <li><code>gmail.addons.current.message.metadata</code>: leer el remitente y el asunto del correo abierto,
       solo mientras usás el panel.</li>
     <li><code>gmail.addons.current.action.compose</code>: crear el borrador con el audio.</li>
-    <li><code>script.external_request</code>: conectarse a la API de Gemini para transcribir y, en las copias
-      del complemento, al servicio de Mensajes de voz.</li>
+    <li><code>script.external_request</code>: conectarse a la API de Gemini para transcribir, a la de Drive
+      si elegís «Enlace de Drive» y, en las copias del complemento, al servicio de Mensajes de voz.</li>
     <li><code>userinfo.email</code> y <code>openid</code>: comprobar con qué cuenta usás el complemento.</li>
+    <li><code>drive.file</code>: guardar los audios en tu Drive si elegís «Enlace de Drive». Solo da acceso a
+      los archivos que crea el complemento, no al resto de tu Drive.</li>
   </ul>
 
   <h2>Seguridad</h2>
